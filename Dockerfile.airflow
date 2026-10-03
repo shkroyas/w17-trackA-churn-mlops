@@ -1,0 +1,12 @@
+FROM ghcr.io/astral-sh/uv:0.12.13 AS uv
+FROM apache/airflow:2.10.5-python3.12
+USER root
+COPY --from=uv /uv /usr/local/bin/uv
+WORKDIR /opt/project
+COPY --chown=airflow:root pyproject.toml uv.lock ./
+ENV UV_LINK_MODE=copy UV_CACHE_DIR=/tmp/uv-cache MPLCONFIGDIR=/tmp/matplotlib EVIDENTLY_DISABLE_TELEMETRY=1
+RUN uv sync --no-cache --locked --no-dev --no-install-project
+COPY --chown=airflow:root . .
+RUN uv sync --no-cache --locked --no-dev --no-editable && chmod -R a+rX /opt/project
+USER airflow
+WORKDIR /opt/project

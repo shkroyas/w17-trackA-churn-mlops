@@ -1,0 +1,5 @@
+{
+  "pipeline_exit_code": 0,
+  "scope": "Independent Docker run against container MLflow server; original local evidence preserved",
+  "api_demo": "../deployment_smoke.json"
+}

@@ -1,0 +1,86 @@
+ Container churn-mlops-mlflow-1  Recreate
+ Container churn-mlops-mlflow-1  Recreated
+ Container churn-mlops-mlflow-1  Starting
+ Container churn-mlops-mlflow-1  Started
+/app/.venv/lib/python3.12/site-packages/evidently/descriptors/text_match.py:140: SyntaxWarning: invalid escape sequence '\d'
+  TextMatch(text_column="description", match_items=r"\b\d{3}-\d{3}-\d{4}\b", match_type="regex")
+2026/10/03 09:25:59 WARNING mlflow.utils.git_utils: Failed to import Git (the Git executable is probably not on your PATH), so Git SHA is not available. Error: Failed to initialize: Bad git executable.
+The git executable must be specified in one of the following ways:
+    - be included in your $PATH
+    - be set via $GIT_PYTHON_GIT_EXECUTABLE
+    - explicitly set via git.refresh(<full-path-to-git-executable>)
+
+All git commands will error until this is rectified.
+
+This initial message can be silenced or aggravated in the future by setting the
+$GIT_PYTHON_REFRESH environment variable. Use one of the following values:
+    - quiet|q|silence|s|silent|none|n|0: for no message or exception
+    - warn|w|warning|log|l|1: for a warning message (logging level CRITICAL, displayed by default)
+    - error|e|exception|raise|r|2: for a raised exception
+
+Example:
+    export GIT_PYTHON_REFRESH=quiet
+
+/app/.venv/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:451: OptimizeWarning: Unknown solver options: iprint
+  opt_res = optimize.minimize(
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:26:04 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+/app/.venv/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:451: OptimizeWarning: Unknown solver options: iprint
+  opt_res = optimize.minimize(
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:26:07 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:26:11 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:26:15 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:26:20 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+Registered model 'churn-classifier' already exists. Creating a new version of this model...
+2026/10/03 09:26:20 INFO mlflow.store.model_registry.abstract_store: Waiting up to 300 seconds for model version to finish creation. Model name: churn-classifier, version 3
+Created version '3' of model 'churn-classifier'.
+/app/.venv/lib/python3.12/site-packages/churn_mlops/registry.py:23: FutureWarning: ``mlflow.tracking.client.MlflowClient.transition_model_version_stage`` is deprecated since 2.9.0. Model registry stages will be removed in a future major release. To learn more about the deprecation of model registry stages, see our migration guide here: https://mlflow.org/docs/latest/model-registry.html#migrating-from-stages
+  client.transition_model_version_stage(config["model_name"], version.version, "Staging")
+/app/.venv/lib/python3.12/site-packages/churn_mlops/registry.py:25: FutureWarning: ``mlflow.tracking.client.MlflowClient.transition_model_version_stage`` is deprecated since 2.9.0. Model registry stages will be removed in a future major release. To learn more about the deprecation of model registry stages, see our migration guide here: https://mlflow.org/docs/latest/model-registry.html#migrating-from-stages
+  client.transition_model_version_stage(
+/app/.venv/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:451: OptimizeWarning:
+
+Unknown solver options: iprint
+
+🏃 View run lr_c01 at: http://mlflow:5000/#/experiments/1/runs/51868e3d6f054b9287560570ee33e7a6
+🧪 View experiment at: http://mlflow:5000/#/experiments/1
+🏃 View run lr_c1 at: http://mlflow:5000/#/experiments/1/runs/07ddb786960c4f7c930abdf28014cb91
+🧪 View experiment at: http://mlflow:5000/#/experiments/1
+🏃 View run rf_d8_n300 at: http://mlflow:5000/#/experiments/1/runs/10060c3dc91d4b0192405781030093b3
+🧪 View experiment at: http://mlflow:5000/#/experiments/1
+🏃 View run rf_d16_n300 at: http://mlflow:5000/#/experiments/1/runs/5a2236c7b5a24a7baab38fe9fc41cc65
+🧪 View experiment at: http://mlflow:5000/#/experiments/1
+🏃 View run rf_dNone_n500 at: http://mlflow:5000/#/experiments/1/runs/5f331ddbcb2e43169d72d36139b57ff6
+🧪 View experiment at: http://mlflow:5000/#/experiments/1
+🏃 View run control at: http://mlflow:5000/#/experiments/2/runs/9c0509a01df447a88b5bfb26fc744837
+🧪 View experiment at: http://mlflow:5000/#/experiments/2
+🏃 View run drifted at: http://mlflow:5000/#/experiments/2/runs/2401bd7aa5eb40a3920d310c5e09061c
+🧪 View experiment at: http://mlflow:5000/#/experiments/2
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 44.47it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 85.31it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 124.18it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 162.30it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 201.47it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 241.37it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 280.78it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 280.07it/s]
+/app/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning:
+
+Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+
+2026/10/03 09:26:25 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+Registered model 'churn-classifier' already exists. Creating a new version of this model...
+2026/10/03 09:26:25 INFO mlflow.store.model_registry.abstract_store: Waiting up to 300 seconds for model version to finish creation. Model name: churn-classifier, version 4
+Created version '4' of model 'churn-classifier'.
+/app/.venv/lib/python3.12/site-packages/churn_mlops/registry.py:81: FutureWarning:
+
+``mlflow.tracking.client.MlflowClient.transition_model_version_stage`` is deprecated since 2.9.0. Model registry stages will be removed in a future major release. To learn more about the deprecation of model registry stages, see our migration guide here: https://mlflow.org/docs/latest/model-registry.html#migrating-from-stages
+
+/app/.venv/lib/python3.12/site-packages/churn_mlops/registry.py:84: FutureWarning:
+
+``mlflow.tracking.client.MlflowClient.transition_model_version_stage`` is deprecated since 2.9.0. Model registry stages will be removed in a future major release. To learn more about the deprecation of model registry stages, see our migration guide here: https://mlflow.org/docs/latest/model-registry.html#migrating-from-stages
+
+🏃 View run drift-challenger at: http://mlflow:5000/#/experiments/3/runs/d8b5a7895a664e71a3435d7674105409
+🧪 View experiment at: http://mlflow:5000/#/experiments/3

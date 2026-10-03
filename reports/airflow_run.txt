@@ -1,0 +1,140 @@
+
+DB: sqlite:////tmp/assignment-airflow/airflow.db
+Performing upgrade to the metadata database sqlite:////tmp/assignment-airflow/airflow.db
+[2026-10-03T09:08:46.930+0000] {migration.py:207} INFO - Context impl SQLiteImpl.
+[2026-10-03T09:08:46.931+0000] {migration.py:210} INFO - Will assume non-transactional DDL.
+[2026-10-03T09:08:46.931+0000] {migration.py:207} INFO - Context impl SQLiteImpl.
+[2026-10-03T09:08:46.931+0000] {migration.py:210} INFO - Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 5f2621c13b39
+Database migrating done!
+[2026-10-03T09:08:49.285+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/project/dags
+[2026-10-03T09:08:49.328+0000] {dag.py:4435} INFO - dagrun id: churn_daily_monitoring
+[2026-10-03T09:08:49.333+0000] {dag.py:4451} INFO - created dagrun <DagRun churn_daily_monitoring @ 2026-10-03 00:00:00+00:00: manual__2026-10-03T00:00:00+00:00, state:running, queued_at: None. externally triggered: False>
+[2026-10-03T09:08:49.351+0000] {dag.py:4396} INFO - [DAG TEST] starting task_id=check_drift map_index=-1
+[2026-10-03T09:08:49.351+0000] {dag.py:4399} INFO - [DAG TEST] running task <TaskInstance: churn_daily_monitoring.check_drift manual__2026-10-03T00:00:00+00:00 [scheduled]>
+[2026-10-03 09:08:49,738] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='check_drift' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:08:49.738+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='check_drift' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:08:49.742+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-10-03 09:08:49,760] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2026-10-03T09:08:49.760+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+/opt/project/.venv/lib/python3.12/site-packages/evidently/descriptors/text_match.py:118: SyntaxWarning: invalid escape sequence '\d'
+  """
+2026/10/03 09:09:00 WARNING mlflow.utils.git_utils: Failed to import Git (the Git executable is probably not on your PATH), so Git SHA is not available. Error: Failed to initialize: Bad git executable.
+The git executable must be specified in one of the following ways:
+    - be included in your $PATH
+    - be set via $GIT_PYTHON_GIT_EXECUTABLE
+    - explicitly set via git.refresh(<full-path-to-git-executable>)
+
+All git commands will error until this is rectified.
+
+This initial message can be silenced or aggravated in the future by setting the
+$GIT_PYTHON_REFRESH environment variable. Use one of the following values:
+    - quiet|q|silence|s|silent|none|n|0: for no message or exception
+    - warn|w|warning|log|l|1: for a warning message (logging level CRITICAL, displayed by default)
+    - error|e|exception|raise|r|2: for a raised exception
+
+Example:
+    export GIT_PYTHON_REFRESH=quiet
+
+{
+  "control": {
+    "run_id": "9d13538e5f5d4ea4bc61289a1f22d358",
+    "drifted_columns": [],
+    "mean_charge_shift": 0.6279325320218874,
+    "churn_rate_shift": 0.00018488848613190667,
+    "reference_churn_rate": 0.2653144016227181,
+    "current_churn_rate": 0.26549929010885,
+    "significant": false
+  },
+  "drifted": {
+    "run_id": "2da35fa4bafd402c98fa45c7de783b6e",
+    "drifted_columns": [
+      "tenure",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "Contract",
+      "MonthlyCharges",
+      "TotalCharges"
+    ],
+    "mean_charge_shift": 34.431091660774,
+    "churn_rate_shift": 0.1274920347237088,
+    "reference_churn_rate": 0.2653144016227181,
+    "current_churn_rate": 0.39280643634642687,
+    "significant": true
+  }
+}
+[2026-10-03 09:09:03,302] {python.py:240} INFO - Done. Returned value was: evaluate_challenger
+[2026-10-03T09:09:03.302+0000] {python.py:240} INFO - Done. Returned value was: evaluate_challenger
+[2026-10-03 09:09:03,303] {branch.py:38} INFO - Branch into evaluate_challenger
+[2026-10-03T09:09:03.303+0000] {branch.py:38} INFO - Branch into evaluate_challenger
+[2026-10-03T09:09:03.304+0000] {skipmixin.py:233} INFO - Following branch {'evaluate_challenger'}
+[2026-10-03T09:09:03.309+0000] {skipmixin.py:281} INFO - Skipping tasks [('no_retrain', -1)]
+[2026-10-03T09:09:03.324+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-10-03T09:09:03.324+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=churn_daily_monitoring, task_id=check_drift, run_id=manual__2026-10-03T00:00:00+00:00, execution_date=20261003T000000, start_date=, end_date=20261003T090903
+[2026-10-03T09:09:03.334+0000] {dag.py:4410} INFO - [DAG TEST] end task task_id=check_drift map_index=-1
+[2026-10-03T09:09:03.344+0000] {dag.py:4396} INFO - [DAG TEST] starting task_id=evaluate_challenger map_index=-1
+[2026-10-03T09:09:03.344+0000] {dag.py:4399} INFO - [DAG TEST] running task <TaskInstance: churn_daily_monitoring.evaluate_challenger manual__2026-10-03T00:00:00+00:00 [scheduled]>
+[2026-10-03 09:09:03,356] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='evaluate_challenger' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:09:03.356+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='evaluate_challenger' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:09:03.356+0000] {taskinstance.py:732} INFO - ::endgroup::
+/opt/project/.venv/lib/python3.12/site-packages/evidently/descriptors/text_match.py:118: SyntaxWarning: invalid escape sequence '\d'
+  """
+/opt/project/.venv/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:451: OptimizeWarning: Unknown solver options: iprint
+  opt_res = optimize.minimize(
+2026/10/03 09:09:13 WARNING mlflow.utils.git_utils: Failed to import Git (the Git executable is probably not on your PATH), so Git SHA is not available. Error: Failed to initialize: Bad git executable.
+The git executable must be specified in one of the following ways:
+    - be included in your $PATH
+    - be set via $GIT_PYTHON_GIT_EXECUTABLE
+    - explicitly set via git.refresh(<full-path-to-git-executable>)
+
+All git commands will error until this is rectified.
+
+This initial message can be silenced or aggravated in the future by setting the
+$GIT_PYTHON_REFRESH environment variable. Use one of the following values:
+    - quiet|q|silence|s|silent|none|n|0: for no message or exception
+    - warn|w|warning|log|l|1: for a warning message (logging level CRITICAL, displayed by default)
+    - error|e|exception|raise|r|2: for a raised exception
+
+Example:
+    export GIT_PYTHON_REFRESH=quiet
+
+/opt/project/.venv/lib/python3.12/site-packages/mlflow/types/utils.py:452: UserWarning: Hint: Inferred schema contains integer column(s). Integer columns in Python cannot represent missing values. If your input data contains missing values at inference time, it will be encoded as floats and will cause a schema enforcement error. The best way to avoid this problem is to infer the model schema based on a realistic data sample (training dataset) that includes missing values. Alternatively, you can declare integer columns as doubles (float64) whenever these columns may have missing values. See `Handling Integers With Missing Values <https://www.mlflow.org/docs/latest/models.html#handling-integers-with-missing-values>`_ for more details.
+  warnings.warn(
+2026/10/03 09:09:19 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+{
+  "champion": {
+    "accuracy": 0.7423704755145494,
+    "precision": 0.6380368098159509,
+    "recall": 0.6265060240963856,
+    "f1": 0.6322188449848024,
+    "roc_auc": 0.7987846005316546
+  },
+  "challenger": {
+    "accuracy": 0.7423704755145494,
+    "precision": 0.6380368098159509,
+    "recall": 0.6265060240963856,
+    "f1": 0.6322188449848024,
+    "roc_auc": 0.7987846005316546
+  },
+  "promoted": false,
+  "run_id": "d1d61d8734284d14bd5de9acb8ccdcfd",
+  "evaluation_seed": 44
+}
+[2026-10-03 09:09:20,811] {python.py:240} INFO - Done. Returned value was: None
+[2026-10-03T09:09:20.811+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-10-03T09:09:20.814+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-10-03T09:09:20.815+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=churn_daily_monitoring, task_id=evaluate_challenger, run_id=manual__2026-10-03T00:00:00+00:00, execution_date=20261003T000000, start_date=, end_date=20261003T090920
+[2026-10-03T09:09:20.824+0000] {dag.py:4410} INFO - [DAG TEST] end task task_id=evaluate_challenger map_index=-1
+[2026-10-03T09:09:20.832+0000] {dag.py:4396} INFO - [DAG TEST] starting task_id=done map_index=-1
+[2026-10-03T09:09:20.832+0000] {dag.py:4399} INFO - [DAG TEST] running task <TaskInstance: churn_daily_monitoring.done manual__2026-10-03T00:00:00+00:00 [scheduled]>
+[2026-10-03 09:09:20,845] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='done' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:09:20.845+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='royas' AIRFLOW_CTX_DAG_ID='churn_daily_monitoring' AIRFLOW_CTX_TASK_ID='done' AIRFLOW_CTX_EXECUTION_DATE='2026-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-03T00:00:00+00:00'
+[2026-10-03T09:09:20.845+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-10-03T09:09:20.847+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-10-03T09:09:20.847+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=churn_daily_monitoring, task_id=done, run_id=manual__2026-10-03T00:00:00+00:00, execution_date=20261003T000000, start_date=, end_date=20261003T090920
+[2026-10-03T09:09:20.855+0000] {dag.py:4410} INFO - [DAG TEST] end task task_id=done map_index=-1
+[2026-10-03T09:09:20.857+0000] {dagrun.py:854} INFO - Marking run <DagRun churn_daily_monitoring @ 2026-10-03 00:00:00+00:00: manual__2026-10-03T00:00:00+00:00, state:running, queued_at: None. externally triggered: False> successful
+[2026-10-03T09:09:20.857+0000] {dagrun.py:905} INFO - DagRun Finished: dag_id=churn_daily_monitoring, execution_date=2026-10-03 00:00:00+00:00, run_id=manual__2026-10-03T00:00:00+00:00, run_start_date=2026-10-03 00:00:00+00:00, run_end_date=2026-10-03 09:09:20.857316+00:00, run_duration=32960.857316, state=success, external_trigger=False, run_type=manual, data_interval_start=2026-10-02 00:00:00+00:00, data_interval_end=2026-10-03 00:00:00+00:00, dag_hash=None

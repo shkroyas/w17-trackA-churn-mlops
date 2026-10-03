@@ -1,0 +1,55 @@
+name: churn-mlops
+services:
+  mlflow:
+    image: churn-mlops:local
+    build: .
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --serve-artifacts --artifacts-destination /mlflow/artifacts --default-artifact-root mlflow-artifacts:/
+    ports: ["127.0.0.1:5001:5000"]
+    volumes: ["tracking:/mlflow"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+  pipeline:
+    image: churn-mlops:local
+    pull_policy: never
+    profiles: ["pipeline"]
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    command: python scripts/run_pipeline.py
+    volumes: ["./reports:/app/reports", "raw-data:/app/data/raw"]
+    depends_on:
+      mlflow: {condition: service_healthy}
+  api:
+    image: churn-mlops:local
+    pull_policy: never
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    ports: ["127.0.0.1:${CHURN_API_PORT:-8001}:8001"]
+    depends_on:
+      mlflow: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  airflow:
+    build: {context: ., dockerfile: Dockerfile.airflow}
+    profiles: ["airflow"]
+    user: "${AIRFLOW_UID:-1000}:0"
+    command: airflow standalone
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/project/dags
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      PROJECT_DIR: /opt/project
+    ports: ["127.0.0.1:8081:8080"]
+    volumes: ["airflow-data:/opt/airflow", "./reports:/opt/project/reports", "raw-data:/opt/project/data/raw"]
+    depends_on:
+      mlflow: {condition: service_healthy}
+volumes:
+  tracking:
+  raw-data:
+  airflow-data:

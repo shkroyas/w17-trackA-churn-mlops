@@ -1,0 +1,13 @@
+seed: 42
+test_size: 0.2
+reference_fraction: 0.7
+f1_floor: 0.55
+model_name: churn-classifier
+drift_mean_threshold: 15.0
+drift_target_threshold: 0.05
+models:
+  - {name: lr_c01, family: logistic, C: 0.1}
+  - {name: lr_c1, family: logistic, C: 1.0}
+  - {name: rf_d8_n300, family: forest, max_depth: 8, n_estimators: 300}
+  - {name: rf_d16_n300, family: forest, max_depth: 16, n_estimators: 300}
+  - {name: rf_dNone_n500, family: forest, max_depth: null, n_estimators: 500}

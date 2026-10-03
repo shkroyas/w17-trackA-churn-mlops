@@ -96,3 +96,7 @@ API: http://localhost:8001/docs by default; override CHURN_API_PORT in .env if o
 ## Verification and submission
 
 `uv run ruff check src tests scripts dags`, `uv run ruff format --check src tests scripts dags`, and `uv run pytest -q`. CI validates locked setup and static implementation; full deliverables require the pipeline and live MLflow state. `scripts/check_deliverables.py` checks 20 implementation/runtime requirements, including actual MLflow artifacts. Airflow execution evidence is reported separately from that mandatory core scorecard. Run scripts from the root. reports/ contains measured evidence, not the plan's expected example numbers. GitHub protection, CI on remote main, and final release tags require publishing the repository; local files alone do not establish these.
+
+## Verified local services
+
+Churn API is currently running at http://localhost:18001/docs; its container MLflow UI is http://localhost:5001. The independent container pipeline completed; reports/container_validation preserves its run IDs separately. `uv run python scripts/smoke_api.py --base-url http://localhost:18001` records real prediction and invalid-input evidence in reports/deployment_smoke.json.

@@ -1,0 +1,28 @@
+{
+  "control": {
+    "run_id": "9c0509a01df447a88b5bfb26fc744837",
+    "drifted_columns": [],
+    "mean_charge_shift": 0.6279325320218874,
+    "churn_rate_shift": 0.00018488848613190667,
+    "reference_churn_rate": 0.2653144016227181,
+    "current_churn_rate": 0.26549929010885,
+    "significant": false
+  },
+  "drifted": {
+    "run_id": "2401bd7aa5eb40a3920d310c5e09061c",
+    "drifted_columns": [
+      "tenure",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "Contract",
+      "MonthlyCharges",
+      "TotalCharges"
+    ],
+    "mean_charge_shift": 34.431091660774,
+    "churn_rate_shift": 0.1274920347237088,
+    "reference_churn_rate": 0.2653144016227181,
+    "current_churn_rate": 0.39280643634642687,
+    "significant": true
+  }
+}

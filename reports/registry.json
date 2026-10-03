@@ -1,0 +1,17 @@
+{
+  "name": "lr_c1",
+  "run_id": "8d101cc2c9714284a872d869e660a00f",
+  "model_uri": "runs:/8d101cc2c9714284a872d869e660a00f/model",
+  "accuracy": 0.8055358410220014,
+  "precision": 0.6572327044025157,
+  "recall": 0.5588235294117647,
+  "f1": 0.6040462427745664,
+  "roc_auc": 0.8418610659019866,
+  "model_name": "churn-classifier",
+  "version": 1,
+  "stages": [
+    "None",
+    "Staging",
+    "Production"
+  ]
+}

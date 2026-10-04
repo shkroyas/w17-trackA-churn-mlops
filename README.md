@@ -4,6 +4,33 @@
 
 Standalone W17 assignment by Royas Shakya. Built from scratch from the PDFs; no existing scaffold was reused. Track B is in a separate repository. Python 3.12, CPU only.
 
+## Project demonstration
+
+[![Watch the Week 17 Task A and Task B core demonstration](docs/images/week17-core-demo.png)](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-task-a-b-core-demo.mp4)
+
+**[Watch or download week17-task-a-b-core-demo.mp4](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-task-a-b-core-demo.mp4)** (9m45s) — the project walkthrough now uses a natural neural English narrator. It shows real application interactions, measured experiments, native reports, and local Airflow execution for both separate tasks.
+
+[Core transcript](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/TRANSCRIPT.md) · [Timed captions](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-core-demo.srt) · [Chapters and SHA-256](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/core-video-manifest.json) · [Extended video with the verified Azure demo](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-task-a-b-complete-demo.mp4)
+
+The combined videos are hosted on Task A's private release; sign in with an account that has access to that repository. See [video contents and narration details](docs/demo-video.md). Narration is synthetic neural speech. Existing real footage is retimed to the revised narration; original experiment results and earlier recordings are preserved.
+
+## What was built
+
+This repository takes a churn model through reproducible training, experiment selection, serving, drift detection, and controlled retraining.
+
+| Deliverable | What it does | Source and evidence |
+|---|---|---|
+| Reproducible data pipeline | Downloads checksum-pinned IBM Telco data; splits before fitting preprocessing to prevent leakage. | [Data handling](src/churn_mlops/data.py), [pipeline](scripts/run_pipeline.py), [locked environment](uv.lock) |
+| Five tracked experiments | Compares logistic regressions and random forests using accuracy, precision, recall, F1 and ROC-AUC; logs models and plots. | [Training](src/churn_mlops/train.py), [run table](reports/training_runs.json) |
+| Model registry and API | Promotes the selected model through staging/production; FastAPI serves actual probabilities and identifies the loaded version. | [Registry](src/churn_mlops/registry.py), [API](src/churn_mlops/serve.py), [real API checks](reports/deployment_smoke.json) |
+| Native drift reports | Compares clean and deliberately shifted batches; produces feature, target and custom mean-charge reports. | [Monitoring](src/churn_mlops/drift.py), [custom metric](src/churn_mlops/custom_metrics.py), [reports](reports/) |
+| Challenger promotion gate | Drift requests evaluation; a challenger replaces production only after measured improvement on a reserved holdout. | [Initial challenger result](reports/initial_challenge_result.json), [implementation report](docs/week17-submission-report.md) |
+| Airflow orchestration | Runs daily drift checking and conditional challenger evaluation; retains actual execution evidence. | [DAG](dags/churn_monitoring.py), [evidence guide](reports/deliverables.md) |
+| Docker and temporary Azure demo | Serves this task through its own authenticated HTTPS gateway; shares only the bounded cloud environment with Task B. | [Dockerfile](Dockerfile), [Azure wrapper](deploy/azure/), [deployment guide](docs/azure-demo.md), [live checks](reports/cloud_demo/azure_https_smoke.json) |
+| Submission and verification | Supplies detailed decisions, reproduction steps, file hashes, four tests, required CI and downloadable source bundles. | [Detailed report](docs/week17-submission-report.md), [inventory](docs/deliverable-manifest.tsv), [release assets](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/tag/w17-trackA-final) |
+
+Task B's assistant implementation is in its [own repository and README](https://github.com/shkroyas/Ai_Assistant_MLops#readme).
+
 ## Week 17 deliverables and required README sections
 
 [Complete file inventory with SHA-256](docs/deliverable-manifest.tsv) · [Detailed implementation report](docs/week17-submission-report.md) · [Core evidence scorecard](reports/deliverables.md)
@@ -120,5 +147,3 @@ The recorded Docker validation used http://localhost:18001/docs and MLflow http:
 The separate Task A image adds an authenticated Nginx gateway, FastAPI and a small MLflow instance. Azure supplies HTTPS; Qwen inference uses the existing authenticated Jupyter HTTPS server proxy. The demo uses no SSH tunnel. See [deployment instructions, cost and cleanup](docs/azure-demo.md). Cloud availability must be established by the deployment smoke report; source files alone do not establish a running deployment.
 
 Demo deployed on 2026-10-04: [Task A HTTPS gateway](https://task-a.calmflower-4280b7f7.centralindia.azurecontainerapps.io). Authentication uses the generated private `demo-access.json`; credentials are excluded from Git. Scheduled deletion: **2026-10-04 11:15 UTC / 17:00 Nepal**. [Deployment evidence](reports/cloud_demo/azure_deployment.json). Actual public prediction and invalid-input checks [passed](reports/cloud_demo/azure_https_smoke.json).
-
-The [complete 9-minute-32-second demo video](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-task-a-b-complete-demo.mp4) covers both separate tasks and actual Azure execution. [Transcript](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/COMPLETE_TRANSCRIPT.md) and [captions](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-complete-demo.srt) accompany it. These combined assets require access to Task A's private repository.

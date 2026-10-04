@@ -1,0 +1,55 @@
+{
+  "checked_at": "2026-10-04T08:05:46.882957+00:00",
+  "scope": "Actual public Azure HTTPS deployment",
+  "task": "A",
+  "base_url": "https://task-a.calmflower-4280b7f7.centralindia.azurecontainerapps.io",
+  "expires_utc": "2026-10-04T11:15:00+00:00",
+  "cleanup_preflight": "Succeeded",
+  "estimated_active_usd_with_margin": 2.52,
+  "checks": [
+    {
+      "path": "/",
+      "http_status": 200
+    },
+    {
+      "path": "/healthz",
+      "http_status": 200,
+      "health": {
+        "status": "healthy",
+        "model": "churn-classifier",
+        "version": "2"
+      }
+    },
+    {
+      "path": "/service/docs",
+      "http_status": 200
+    },
+    {
+      "path": "/service/openapi.json",
+      "http_status": 200
+    },
+    {
+      "path": "/tracking/",
+      "http_status": 200
+    },
+    {
+      "path": "/",
+      "anonymous_http_status": 401
+    },
+    {
+      "path": "/service/docs",
+      "anonymous_http_status": 401
+    },
+    {
+      "path": "/tracking/",
+      "anonymous_http_status": 401
+    }
+  ],
+  "prediction": {
+    "churn_probability": 0.6828609850640404,
+    "churn": true,
+    "model_version": "2"
+  },
+  "invalid_http_status": 422,
+  "status": "passed"
+}

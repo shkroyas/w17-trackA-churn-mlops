@@ -113,3 +113,12 @@ API: http://localhost:8001/docs by default; override CHURN_API_PORT in .env if o
 ## Verified local services
 
 The recorded Docker validation used http://localhost:18001/docs and MLflow http://localhost:5001. Task A containers were stopped at the 2026-10-04 handoff audit; start them with the commands above before using these URLs. The independent container pipeline completed; reports/container_validation preserves its run IDs separately. `uv run python scripts/smoke_api.py --base-url http://localhost:18001` records real prediction and invalid-input evidence in reports/deployment_smoke.json.
+
+
+## Temporary Azure HTTPS demonstration
+
+The separate Task A image adds an authenticated Nginx gateway, FastAPI and a small MLflow instance. Azure supplies HTTPS; Qwen inference uses the existing authenticated Jupyter HTTPS server proxy. The demo uses no SSH tunnel. See [deployment instructions, cost and cleanup](docs/azure-demo.md). Cloud availability must be established by the deployment smoke report; source files alone do not establish a running deployment.
+
+Demo deployed on 2026-10-04: [Task A HTTPS gateway](https://task-a.calmflower-4280b7f7.centralindia.azurecontainerapps.io). Authentication uses the generated private `demo-access.json`; credentials are excluded from Git. Scheduled deletion: **2026-10-04 11:15 UTC / 17:00 Nepal**. [Deployment evidence](reports/cloud_demo/azure_deployment.json). Actual public prediction and invalid-input checks [passed](reports/cloud_demo/azure_https_smoke.json).
+
+The [complete 9-minute-32-second demo video](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-task-a-b-complete-demo.mp4) covers both separate tasks and actual Azure execution. [Transcript](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/COMPLETE_TRANSCRIPT.md) and [captions](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/download/w17-trackA-final/week17-complete-demo.srt) accompany it. These combined assets require access to Task A's private repository.

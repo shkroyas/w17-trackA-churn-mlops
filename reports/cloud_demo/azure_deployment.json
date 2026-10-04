@@ -1,0 +1,28 @@
+{
+  "scope": "Actual temporary Azure deployment",
+  "location": "centralindia",
+  "apps": {
+    "a": "https://task-a.calmflower-4280b7f7.centralindia.azurecontainerapps.io",
+    "b": "https://task-b.calmflower-4280b7f7.centralindia.azurecontainerapps.io"
+  },
+  "expires_utc": "2026-10-04T11:15:00+00:00",
+  "budget_usd": 5.0,
+  "estimated_active_usd_with_margin": 2.52,
+  "cleanup_preflight": "Succeeded",
+  "environment_profiles": [
+    {
+      "enableFips": false,
+      "name": "Consumption",
+      "workloadProfileType": "Consumption"
+    }
+  ],
+  "limitations": [
+    "Original Airflow evidence is local; Airflow is not hosted in this low-cost deployment",
+    "Deletion is scheduled; its deadline execution has not yet occurred",
+    "Cost estimate is not an invoice or enforceable billing cap"
+  ],
+  "status": "https_and_inference_passed",
+  "history": [
+    "Earlier proxy access failure and safe abstention retained; restored after owner refreshed credentials"
+  ]
+}

@@ -10,8 +10,8 @@ jobs:
           version: "0.12.13"
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run ruff check src tests scripts dags
-      - run: uv run ruff format --check src tests scripts dags
+      - run: uv run ruff check src tests scripts dags deploy/azure
+      - run: uv run ruff format --check src tests scripts dags deploy/azure
       - run: uv run python scripts/run_pipeline.py
       - run: uv run pytest -q
       - run: uv run python scripts/check_deliverables.py

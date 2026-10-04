@@ -1,7 +1,9 @@
-# Optional cloud deployment — pending account and target
+# Optional Task A cloud deployment handoff
 
-No billable resources have been created. Choose an AWS EC2 / Azure VM / GCP Compute VM with Docker, at least 8 GB RAM and enough disk for images. The assistant API/UI does not require a GPU; the separate vLLM model host does. Copy this repository without .env/database/cache, create a local .env on the VM through your cloud secret manager, and execute the README Compose commands. For churn run the container pipeline before starting its API.
+No cloud deployment or billable resource is claimed. Task A is a CPU-only churn service; Task B is hosted independently in its [own repository](https://github.com/shkroyas/Ai_Assistant_MLops).
 
-For a publicly accessible assistant, put an authenticated HTTPS reverse proxy in front of the localhost-bound UI/API. Keep MLflow and Airflow accessible through SSH port forwarding; do not expose their development UIs directly to the internet. Persist Compose volumes and back up MLflow metadata/artifacts. Verify health endpoints, a successful real query, failure fallback, and a concurrent-request benchmark before documenting a deployed endpoint. Record the provider, region, URL, timestamp, and measured evidence in reports/cloud_deployment.md. Cloud account, region, hostname, billing approval/resource limits, and model access must be supplied before a deployment can be executed.
+Choose a Docker-capable VM with adequate CPU, RAM and persistent disk for the pinned pipeline and MLflow artifacts. Copy the tracked source, configure private environment values on the host, and run the README commands in order: start MLflow, run the pipeline profile to populate the registry, then start the API. Start the optional Airflow profile after validating the pipeline. A repository clone does not contain a live registry or original model binaries.
 
-This procedure is a deployment handoff, not evidence that the cloud bonus has been completed.
+Place authenticated HTTPS in front of the API. Keep MLflow and Airflow private via SSH forwarding or a protected internal network. Persist their volumes, back up metadata and artifacts, and restart the API after registry promotion. Validate `/health`, a real `/predict` call and malformed-input HTTP 422 before documenting availability. Record provider, region, deployment URL, timestamp, registry version and actual smoke results in `reports/cloud_deployment.md`.
+
+The target account, region, hostname and resource budget must be specified before creating resources. These steps are a future deployment handoff, not evidence of cloud execution.

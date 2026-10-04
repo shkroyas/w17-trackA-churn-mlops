@@ -8,3 +8,11 @@ mlartifacts
 .pytest_cache
 .ruff_cache
 .airflow
+
+# Private local state and model caches never enter a build context
+.demo-secrets
+.env.*
+!.env.example
+.models
+.qdrant
+local-developer-guide

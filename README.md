@@ -1,5 +1,7 @@
 # Track A — Telco Churn MLOps
 
+[![CI and container delivery](https://github.com/shkroyas/w17-trackA-churn-mlops/actions/workflows/ci.yml/badge.svg)](https://github.com/shkroyas/w17-trackA-churn-mlops/actions/workflows/ci.yml)
+
 **Week 17 handoff:** [Detailed report and deliverable locations](docs/week17-submission-report.md) · [Task B README](https://github.com/shkroyas/Ai_Assistant_MLops#readme) · [Task B detailed report](https://github.com/shkroyas/Ai_Assistant_MLops/blob/main/docs/week17-submission-report.md)
 
 Standalone W17 assignment by Royas Shakya. Built from scratch from the PDFs; no existing scaffold was reused. Track B is in a separate repository. Python 3.12, CPU only.
@@ -30,6 +32,56 @@ This repository takes a churn model through reproducible training, experiment se
 | Submission and verification | Supplies detailed decisions, reproduction steps, file hashes, four tests, required CI and downloadable source bundles. | [Detailed report](docs/week17-submission-report.md), [inventory](docs/deliverable-manifest.tsv), [release assets](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/tag/w17-trackA-final) |
 
 Task B's assistant implementation is in its [own repository and README](https://github.com/shkroyas/Ai_Assistant_MLops#readme).
+
+## Results and screenshot evidence
+
+| Recorded result | Value | Underlying evidence |
+|---|---|---|
+| Initial winning model | Logistic regression, C=1; F1 0.6040, ROC-AUC 0.8419 | [Five-model comparison](reports/model_comparison.md) |
+| Shifted-holdout challenge | Champion F1 0.4109 → challenger 0.6322; first promotion permitted | [Original challenger decision](reports/initial_challenge_result.json) |
+| Actual current local prediction | Probability 0.68286, model version 4; invalid requests return 422 | [API smoke](reports/deployment_smoke.json) |
+
+**Actual registry-backed prediction in Swagger**
+
+![Actual Task A prediction, HTTP 200 and model version](reports/readme_evidence/api_prediction.png)
+
+<details>
+<summary>View tracked experiments, winning metrics and the production registry</summary>
+
+The native tracking store contains separate real pipeline cohorts. The assignment comparison uses five configurations; repeated reproduction creates new runs and registry versions.
+
+![Native churn training runs](reports/readme_evidence/mlflow_experiments.png)
+
+![Actual winning-model logged metrics](reports/readme_evidence/winning_metrics.png)
+
+![Native model registry and production alias](reports/readme_evidence/production_registry.png)
+
+</details>
+
+<details>
+<summary>View native Evidently control, shifted-data and custom-metric reports</summary>
+
+The clean control and deliberately shifted batch demonstrate monitoring behavior. These are rendered native reports, not a fabricated production incident.
+
+![Native control data drift report](reports/readme_evidence/evidently_control.png)
+
+![Native shifted data drift report](reports/readme_evidence/evidently_shifted.png)
+
+![Native custom mean-charge drift metric](reports/readme_evidence/evidently_custom.png)
+
+</details>
+
+[Capture timestamps, source pages and image SHA-256](reports/readme_evidence/manifest.json). These screenshots show actual local services and recorded reports; they do not replace the raw metrics or claim a new cloud deployment.
+
+## CI and continuous container delivery
+
+[GitHub Actions workflow](.github/workflows/ci.yml) runs locked setup, Ruff checks, engineering tests and deliverable verification on PRs and main. Task A also reproduces its actual training/monitoring pipeline. A dependent container job builds the application and authenticated demo images, then tests real startup, protected/native routes, and Task A prediction/invalid-input handling. Task B checks the packaged v34 configuration and report routes; CI does not use live model credentials or claim a new model-quality evaluation.
+
+PRs build and verify images. Only successful main runs publish them to GHCR with full-commit `sha-...` tags and a `latest` tag. The Actions artifact contains `container-smoke.json` and, after publication, `container-delivery.json` with exact registry digests. The workflow uses its scoped `GITHUB_TOKEN`; private local credentials and model caches are excluded from Docker contexts. A manual Actions dispatch on main provides the same checked delivery path.
+
+Application image: `ghcr.io/shkroyas/w17-tracka-churn-mlops`. Demo image: `ghcr.io/shkroyas/w17-tracka-churn-mlops-demo`. Private package access may require GitHub registry authentication.
+
+Container delivery publishes tested artifacts; Azure provisioning remains an explicitly bounded manual demo operation. This workflow does not create cloud resources or extend a running demo. See [GitHub’s container publishing documentation](https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images).
 
 ## Week 17 deliverables and required README sections
 

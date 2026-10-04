@@ -1,5 +1,17 @@
 name: ci
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -15,3 +27,89 @@ jobs:
       - run: uv run python scripts/run_pipeline.py
       - run: uv run pytest -q
       - run: uv run python scripts/check_deliverables.py
+
+  container_delivery:
+    name: Build, verify and deliver containers
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      packages: write
+    env:
+      LOCAL_BASE: churn-mlops:local
+      TASK: A
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare immutable image names and disposable smoke credentials
+        id: images
+        shell: bash
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY,,}"
+          echo "base=$image" >> "$GITHUB_OUTPUT"
+          echo "demo=$image-demo" >> "$GITHUB_OUTPUT"
+          password="$(openssl rand -hex 24)"
+          echo "::add-mask::$password"
+          echo "DEMO_PASSWORD=$password" >> "$GITHUB_ENV"
+      - name: Build application and authenticated demo images
+        env:
+          BASE_IMAGE: ${{ steps.images.outputs.base }}
+          DEMO_IMAGE: ${{ steps.images.outputs.demo }}
+        run: |
+          docker build --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=$GITHUB_SHA" -t "$LOCAL_BASE" -t "$BASE_IMAGE:sha-$GITHUB_SHA" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" --label "org.opencontainers.image.revision=$GITHUB_SHA" -f deploy/azure/Dockerfile -t "$DEMO_IMAGE:sha-$GITHUB_SHA" .
+      - name: Verify actual container startup, authentication and native routes
+        env:
+          DEMO_IMAGE: ${{ steps.images.outputs.demo }}
+        run: |
+          docker run -d --name delivery-smoke -p 127.0.0.1:18080:8080 -e DEMO_PASSWORD -e AGENT_MODEL=Qwen/Qwen3-14B-AWQ "$DEMO_IMAGE:sha-$GITHUB_SHA"
+          python3 scripts/smoke_container.py --task "$TASK"
+      - name: Log in to GHCR for main delivery
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish only tested images from main
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          BASE_IMAGE: ${{ steps.images.outputs.base }}
+          DEMO_IMAGE: ${{ steps.images.outputs.demo }}
+        run: |
+          for image in "$BASE_IMAGE" "$DEMO_IMAGE"; do
+            docker push "$image:sha-$GITHUB_SHA"
+            docker tag "$image:sha-$GITHUB_SHA" "$image:latest"
+            docker push "$image:latest"
+          done
+          python3 - <<'PYCODE'
+          import json, os, subprocess
+          images = []
+          for key in ["BASE_IMAGE", "DEMO_IMAGE"]:
+              name = os.environ[key] + ":sha-" + os.environ["GITHUB_SHA"]
+              details = json.loads(subprocess.check_output(["docker", "image", "inspect", name]))[0]
+              images.append({"image": name, "repo_digests": details["RepoDigests"]})
+          record = {"commit": os.environ["GITHUB_SHA"], "images": images, "engineering_and_runtime_checks": "passed", "cloud_resources_created": False}
+          with open("container-delivery.json", "w") as f:
+              json.dump(record, f, indent=2)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write("## Tested container delivery\n\n")
+              for image in images:
+                  f.write("- `" + image["image"] + "`\n")
+                  for digest in image["repo_digests"]:
+                      f.write("  - Digest: `" + digest + "`\n")
+          PYCODE
+      - name: Upload runtime and delivery proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-delivery-${{ github.sha }}
+          path: |
+            container-smoke.json
+            container-delivery.json
+          if-no-files-found: ignore
+      - name: Capture diagnostics and remove the disposable container
+        if: always()
+        run: |
+          if [ -f container-smoke.json ]; then cat container-smoke.json; else docker logs --tail 100 delivery-smoke; fi
+          docker rm -f delivery-smoke || true

@@ -1,0 +1,39 @@
+{
+  "scope": "Local Docker gateway; not Azure HTTPS verification",
+  "checks": [
+    {
+      "port": 19081,
+      "path": "/healthz",
+      "status": 200,
+      "health": {
+        "status": "healthy",
+        "model": "churn-classifier",
+        "version": "2"
+      }
+    },
+    {
+      "port": 19081,
+      "path": "/service/docs",
+      "status": 200
+    },
+    {
+      "port": 19081,
+      "path": "/service/openapi.json",
+      "status": 200
+    },
+    {
+      "port": 19081,
+      "path": "/tracking/",
+      "status": 200
+    },
+    {
+      "port": 19081,
+      "path": "/",
+      "status": 200
+    },
+    {
+      "port": 19081,
+      "anonymous_root_status": 401
+    }
+  ]
+}

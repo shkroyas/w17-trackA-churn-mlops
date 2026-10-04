@@ -1,0 +1,71 @@
+{
+  "captured_at_utc": "2026-10-04T11:13:49.480854+00:00",
+  "task": "A",
+  "scope": "Native report rendering and actual existing local services",
+  "health": {
+    "status": "healthy",
+    "model": "churn-classifier",
+    "version": "4"
+  },
+  "screenshots": [
+    {
+      "file": "mlflow_experiments.png",
+      "source": "http://localhost:5001/#/experiments/1",
+      "description": "Native MLflow experiment table from the running local tracking store; new/independent runtime IDs may differ from archived assignment runs.",
+      "sha256": "2bf17ec789a5ae2cf8c8cfd21f963593cc745c58c8968668246c31e53b1cda99",
+      "captured_at_utc": "2026-10-04T11:13:01.085771+00:00"
+    },
+    {
+      "file": "production_registry.png",
+      "source": "http://localhost:5001/#/models/churn-classifier",
+      "description": "Native local churn model registry; current production alias and version history.",
+      "sha256": "87d5b18176487d52edf8dd5af97c1b095531616884dff0b29db19b0f334c9a3e",
+      "captured_at_utc": "2026-10-04T11:13:08.616516+00:00"
+    },
+    {
+      "file": "evidently_control.png",
+      "source": "file:///home/royas-shakya/Downloads/mlops/w17-trackA-churn-mlops/reports/control_data_drift.html",
+      "description": "Native Evidently report generated from recorded control monitoring data; screenshot does not regenerate the pipeline.",
+      "sha256": "47f7f1498593bc5fe1204139bb007f0c17c85593f288d8c91974bd4e8e2d34f1",
+      "captured_at_utc": "2026-10-04T11:13:12.561931+00:00"
+    },
+    {
+      "file": "evidently_shifted.png",
+      "source": "file:///home/royas-shakya/Downloads/mlops/w17-trackA-churn-mlops/reports/drifted_data_drift.html",
+      "description": "Native Evidently report generated from recorded shifted monitoring data; screenshot does not regenerate the pipeline.",
+      "sha256": "cf3bde6a7c4af38518563e0948814ea9e13d4d5089f42d866eb1fe65ae3738d8",
+      "captured_at_utc": "2026-10-04T11:13:16.459888+00:00"
+    },
+    {
+      "file": "evidently_custom.png",
+      "source": "file:///home/royas-shakya/Downloads/mlops/w17-trackA-churn-mlops/reports/drifted_custom_drift.html",
+      "description": "Native Evidently report generated from recorded custom monitoring data; screenshot does not regenerate the pipeline.",
+      "sha256": "fa6629729ce08938ad88521cf12ef95ac997811549056b5639fac90eac260636",
+      "captured_at_utc": "2026-10-04T11:13:20.316063+00:00"
+    },
+    {
+      "file": "api_prediction.png",
+      "source": "http://localhost:18001/docs",
+      "description": "Actual Swagger execution of the prediction endpoint, against the current local registry-backed model.",
+      "sha256": "e78d5586706a31e870d71824976b4d00bb0f6f2f9a5721e823c1cb298295f5d5",
+      "captured_at_utc": "2026-10-04T11:13:24.144110+00:00"
+    },
+    {
+      "file": "winning_run.png",
+      "source": "http://localhost:5001/#/experiments/1/runs/07ddb786960c4f7c930abdf28014cb91",
+      "description": "Native tracked winning logistic model details; screenshot of an actual local pipeline cohort.",
+      "sha256": "6f120b5d3aff7e1419019ab4b4ac76ac96ace9e2a2ea0fc6253fb4f8100722e0",
+      "captured_at_utc": "2026-10-04T11:17:15.664862+00:00"
+    },
+    {
+      "file": "winning_metrics.png",
+      "source": "http://localhost:5001/#/experiments/1/runs/07ddb786960c4f7c930abdf28014cb91",
+      "description": "Native MLflow logged metric values for the actual winning training run.",
+      "sha256": "f4e26bc56ca1cc880f82209fabbfce1384dd8d2cb05371d17f61ff251d1a286c",
+      "captured_at_utc": "2026-10-04T11:20:59.530096+00:00"
+    }
+  ],
+  "no_new_full_quality_evaluation": true,
+  "no_credentials_captured": true,
+  "capture_batch_completed_at_utc": "2026-10-04T11:20:59.530096+00:00"
+}

@@ -1,5 +1,7 @@
 # Assignment execution notes
 
+These are bootstrap notes retained for history. For current completion status, measured results and final releases, use the [Week 17 submission report](week17-submission-report.md). Earlier references to a draft or conditional tagging describe the state at initial implementation.
+
 Source requirements: W15_Assignment.pdf, W16_Assignment.pdf, W17_MLOps_Assignment.pdf, and the supplied W15–W17 implementation plan. Existing workspace projects/scaffolds were not read or used. Tracks are separate private repositories under shkroyas. Solo authorship: Royas Shakya; no collaborating development agents were used.
 
 The plan's example results are not copied as evidence. Initial from-scratch work is organized into requirement-specific commits within an integration PR for each track; this consolidates interdependent bootstrapping work. Real Track B prompt experiments must each use a new experiment PR and a genuine prior development failure trace. No speculative draft is labeled a completed experiment. GitHub submission/final tags are conditional on checks; Track B remains an implementation draft until live evidence exists.

@@ -1,6 +1,19 @@
 # Track A — Telco Churn MLOps
 
+**Week 17 handoff:** [Detailed report and deliverable locations](docs/week17-submission-report.md) · [Task B README](https://github.com/shkroyas/Ai_Assistant_MLops#readme) · [Task B detailed report](https://github.com/shkroyas/Ai_Assistant_MLops/blob/main/docs/week17-submission-report.md)
+
 Standalone W17 assignment by Royas Shakya. Built from scratch from the PDFs; no existing scaffold was reused. Track B is in a separate repository. Python 3.12, CPU only.
+
+## Week 17 deliverables and required README sections
+
+[Complete file inventory with SHA-256](docs/deliverable-manifest.tsv) · [Detailed implementation report](docs/week17-submission-report.md) · [Core evidence scorecard](reports/deliverables.md)
+
+| Assessed section | Direct link |
+|---|---|
+| a. Environment and reproducibility | [uv setup](#a-environment--reproducibility-uv) |
+| b. Experiment tracking and selection | [MLflow strategy](#b-experiment-tracking-strategy-mlflow) |
+| c. Monitoring | [Evidently strategy](#c-monitoring--drift-strategy-evidently-ai) |
+| d. Optional orchestration | [Airflow DAG](#d-orchestration-airflow-bonus) |
 
 ## Quick start
 
@@ -95,8 +108,8 @@ API: http://localhost:8001/docs by default; override CHURN_API_PORT in .env if o
 
 ## Verification and submission
 
-`uv run ruff check src tests scripts dags`, `uv run ruff format --check src tests scripts dags`, and `uv run pytest -q`. CI validates locked setup and static implementation; full deliverables require the pipeline and live MLflow state. `scripts/check_deliverables.py` checks 20 implementation/runtime requirements, including actual MLflow artifacts. Airflow execution evidence is reported separately from that mandatory core scorecard. Run scripts from the root. reports/ contains measured evidence, not the plan's expected example numbers. GitHub protection, CI on remote main, and final release tags require publishing the repository; local files alone do not establish these.
+`uv run ruff check src tests scripts dags`, `uv run ruff format --check src tests scripts dags`, and `uv run pytest -q`. CI validates locked setup and static implementation; full deliverables require the pipeline and live MLflow state. `scripts/check_deliverables.py` checks 20 implementation/runtime requirements, including actual MLflow artifacts. Airflow execution evidence is reported separately from that mandatory core scorecard. Run scripts from the root. reports/ contains measured evidence, not the plan's expected example numbers. The published repository has protected main, required passing CI and a [final release](https://github.com/shkroyas/w17-trackA-churn-mlops/releases/tag/w17-trackA-final). See the detailed handoff report for the assessed file map and evidence scope.
 
 ## Verified local services
 
-Churn API is currently running at http://localhost:18001/docs; its container MLflow UI is http://localhost:5001. The independent container pipeline completed; reports/container_validation preserves its run IDs separately. `uv run python scripts/smoke_api.py --base-url http://localhost:18001` records real prediction and invalid-input evidence in reports/deployment_smoke.json.
+The recorded Docker validation used http://localhost:18001/docs and MLflow http://localhost:5001. Task A containers were stopped at the 2026-10-04 handoff audit; start them with the commands above before using these URLs. The independent container pipeline completed; reports/container_validation preserves its run IDs separately. `uv run python scripts/smoke_api.py --base-url http://localhost:18001` records real prediction and invalid-input evidence in reports/deployment_smoke.json.

@@ -9,3 +9,6 @@ mlartifacts/
 data/raw/
 .qdrant/
 .airflow/
+
+# Local cloud/demo credentials and CLI caches
+.demo-secrets/

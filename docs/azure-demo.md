@@ -66,3 +66,19 @@ uv run python deploy/azure/smoke_demo.py \
 ```
 
 It requires the cleanup preflight, validates HTTPS routes and anonymous rejection, makes an actual Task A prediction, verifies invalid-input HTTP 422, and asks the hosted v34 assistant for a sourced answer before checking zero-new-token cache reuse. Passing evidence is written separately to each task's `reports/cloud_demo/azure_https_smoke.json`. It makes a real model call; original offline tests and historical evaluations are different evidence. Authenticate browser access with the private `demo-access.json` values, never credentials pasted into a public URL.
+
+## Current deployment and proxy refresh
+
+The 2026-10-04 Azure deployment passed its managed-identity cleanup preflight and created both separate HTTPS applications. Actual Task A prediction and HTTP 422 checks passed. Task B's public routes, sourced inference and v34 configuration passed; its final native evidence reports are copied explicitly into the image. Browser WebSocket forwarding preserves the original Host header, avoiding Streamlit's origin rejection while keeping CORS protection enabled. [Nginx header inheritance](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header) requires repeating these headers in a location that sets Upgrade/Connection.
+
+Earlier, Qwen inference redirected to `/hub/access` from both Azure and the workspace. The safe-abstention failure is retained. After the owner refreshed credentials and Task B restarted, actual sourced Qwen inference and zero-new-token cached reuse passed. If proxy access expires again, refresh the ignored `.env` values and run Task B's helper:
+
+```bash
+uv run python deploy/azure/refresh_provider.py \
+  --subscription YOUR_SUBSCRIPTION_ID \
+  --private-dir /absolute/private/demo-directory --env-file .env
+```
+
+It verifies model access first, checks the group's ownership tag, updates secret references through a private YAML file, and restarts Task B to load them. It never extends the cleanup deadline or recreates the environment. A changed model must match the approved v34 model before this helper applies credentials. Blocked proxy access is rejected without changing Azure. Rerun the HTTPS smoke verifier after readiness.
+
+The complete video includes actual local Qwen execution and restored public Azure inference. The earlier outage recording is preserved separately. The scheduled deadline has not yet occurred; successful preflight is evidence of identity access, not proof that the future deletion has executed.

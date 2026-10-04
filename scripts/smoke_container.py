@@ -5,8 +5,9 @@ import base64
 import json
 import os
 import time
+from http.client import HTTPException
 from pathlib import Path
-from urllib.error import HTTPError, URLError
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
@@ -40,7 +41,7 @@ def main():
                 health = json.loads(body)
                 ready = True
                 break
-        except (URLError, TimeoutError):
+        except (OSError, HTTPException):
             pass
         time.sleep(2)
     assert ready, "Container API did not become ready"

@@ -53,3 +53,16 @@ uv run python deploy/azure/deploy_demo.py \
 ```
 
 The cleanup command verifies the matching ownership tag before deleting. Confirm the resource group no longer exists. A successful creation response alone does not establish HTTPS health, model inference or automatic deletion; those require separate recorded checks.
+
+## Verify the public deployment
+
+After provisioning and startup readiness, run Task B's `deploy/azure/smoke_demo.py`:
+
+```bash
+uv run python deploy/azure/smoke_demo.py \
+  --private-dir /absolute/private/demo-directory \
+  --task-a-root /absolute/path/to/w17-trackA-churn-mlops \
+  --task-b-root .
+```
+
+It requires the cleanup preflight, validates HTTPS routes and anonymous rejection, makes an actual Task A prediction, verifies invalid-input HTTP 422, and asks the hosted v34 assistant for a sourced answer before checking zero-new-token cache reuse. Passing evidence is written separately to each task's `reports/cloud_demo/azure_https_smoke.json`. It makes a real model call; original offline tests and historical evaluations are different evidence. Authenticate browser access with the private `demo-access.json` values, never credentials pasted into a public URL.
